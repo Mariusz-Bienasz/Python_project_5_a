@@ -1,0 +1,6 @@
+To jest pierwsze zdanie w pliku. 
+To jest drugie zdanie w pliku. 
+To jest trzecie zdanie w pliku. 
+To jest czwarte zdanie w pliku. 
+To jest piąte zdanie w pliku. 
+To jest szóste zdanie w pliku. 
