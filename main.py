@@ -6,8 +6,20 @@
 ## single line. Don't forget about function documentation
 #
 # ''
-
+import pickle
+import shutil
 # def find(x, y):
+# """
+# funkcja sprawdza czy liczby z przedziału od x do y są podzielne przez 7 i nie podzielne przez 5
+#
+# Args:
+#     x (int): początek zakresu działania.
+#     y (int): koniec zakresu działania.
+#
+# Returns:
+#     str: zwraca wszystkie liczby z tego przedziału spełniające warunki.
+#
+# """
 #     result = []
 #     for i in range(x,y+1):
 #         if i % 7 == 0 and i % 5 != 0:
@@ -34,39 +46,35 @@
 import string
 
 # def check(**kwargs):
-#     password = ''
-#     for i in kwargs.items():
-#         if i[0] == 'haslo':
-#             password = list(i[1])
-#             break
+#     """
+#     funkcja sprawdza czy podany login i hasło spełniają wymagania
+#
+#     Args:
+#         **kwargs : przechowuje wartości do sprawdzenia
+#
+#     Returns:
+#         bool: zwraca wartość True lub False w zależności od przebiegu działania funkcji.
+#
+#     """
+#
+#     password = kwargs.get('haslo', '')
 #
 #     a = False
 #     b = False
 #     c = False
 #     d = False
 #
+#     for sign in password:
+#             if sign.islower(): a = True
+#             if sign.isdigit(): b = True
+#             if sign.isupper(): c = True
 #
-#
-#     for i in password:
-#         if i.islower() and i.isalpha() :
-#             a = True
-#             break
-#
-#     for i in password:
-#         if i.isdigit() :
-#             b = True
-#             break
-#
-#     for i in password:
-#         if i.isupper() and i.isalpha() :
-#             c = True
-#             break
-#
-#     if len(password) >=4 and len(password) <= 8:
-#         d = True
+#     if len(password) >=4 and len(password) <= 8: d = True
 #
 #     print(a,b,c,d)
 #     if a and b and c and d:
+#         with open("password.txt","w") as f:
+#            f.write(f"{kwargs.get('login', '')},{password},{True}")
 #         return True
 #     else:
 #         return False
@@ -85,12 +93,39 @@ import string
 #
 
 # def find(x, y):
-#     result = []
-#     for i in range(x,y+1):
-#         if i % 7 == 0 and i % 5 != 0:
-#             result.append(str(i))
-#     return ",".join(result)
+#     """
+#     funkcja sprawdza czy liczby z przedziału od x do y są podzielne przez 7 i nie podzielne przez 5
 #
+#     Args:
+#         x (int): początek zakresu działania.
+#         y (int): koniec zakresu działania.
+#
+#     Returns:
+#         str: zwraca wszystkie liczby z tego przedziału spełniające warunki.
+#
+#     """
+#     try:
+#         x = int(x)
+#         y = int(y)
+#
+#         if x>y:
+#             return "Error"
+#
+#         result = []
+#         for i in range(x,y+1):
+#             if i % 7 == 0 and i % 5 != 0:
+#                 result.append(str(i))
+#
+#         try:
+#             with open("Task2.pkl", "wb") as f:
+#                 pickle.dump(result, f)
+#         except IOError as e:
+#             print(f"Error, zapis do pliku nie udal sie {e}")
+#         return ",".join(result)
+#     except ValueError:
+#         return "Error, argumenty musza byc intami"
+#     except Exception as e:
+#         return f"Error, {e}"
 #
 # print(find(1000,2101))
 
@@ -110,16 +145,23 @@ import string
 ###############
 
 # def fun(*args):
-#     list1 = []
-#     for i in args:
-#         if i < 100:
-#             list1.append(i*i)
-#         else:
-#             print("Error")
+#     """
+#     funkcja potęguje podane przez użytkownika liczby
 #
+#     Args:
+#         *args: liczby do potegowania
+#
+#     Returns:
+#         list1[]: zwraca listę spotęgowanych liczb
+#
+#     """
+#     list1 = []
+#     if len(args) > 100: return "Error"
+#     for i in args:
+#         list1.append(i**i)
 #     return list1
 #
-# print(fun(1,2,3,4,5,6,7,8,9,0))
+# print(fun(1,2,3,4,5))
 
 ################ Task 4
 ## Create function with multiple arguments (x1,x2,...,xn) that accepts a sequence of
@@ -138,21 +180,31 @@ import string
 ###############
 
 # def fun(*args):
+#     """
+#     funkcja potęguje podane przez użytkownika liczby
+#
+#     Args:
+#         *args: liczby do potegowania
+#
+#     Returns:
+#         (str) : zwraca tekst zawierający spotęgowane liczby
+#
+#     """
 #     list1 = []
 #     if len(args) > 100:
 #         return "Error"
-#
-#     if len(args) == 0:
-#         return ""
 #
 #     results = []
 #     dynamic_namespace = {}
 #
 #     for index, value in enumerate(args, start=1):
-#         var_name = f"x{index}"
-#         dynamic_namespace[var_name] = float(value)
-#         exec(f"res = {var_name} ** {var_name}", {}, dynamic_namespace)
-#         results.append(str(dynamic_namespace['res']))
+#         try:
+#             var_name = f"x{index}"
+#             dynamic_namespace[var_name] = float(value)
+#             exec(f"res = {var_name} ** {var_name}", {}, dynamic_namespace)
+#             results.append(str(dynamic_namespace['res']))
+#         except ValueError:
+#             return f"Error: {value}"
 #
 #     return ", ".join(results)
 #
@@ -174,11 +226,20 @@ import string
 ## b) if the file has 0 in the filename then the function counts words in the text of the file
 ## c) if the filename contains 'EF.txt', then the function copy this file to
 ## 'DocumentLab5copy' directory
-
+#
 # import os
 #
-#
 # def createFiles(folderName, files):
+#     """
+#     funkcja tworzy folder i pliki w nim
+#
+#     Args:
+#         folderName (str): nazwa folderu jak ma sie utworzyć
+#         files[] (str): nazwy plików do stworzenia w folderze
+#
+#     Returns:
+#
+#     """
 #     os.makedirs(folderName,exist_ok=True)
 #
 #     text = (
@@ -200,7 +261,42 @@ import string
 #
 # createFiles("folder",files)
 #
+# def decorator(func):
+#     def wrapper(folderName, txt):
+#         files = os.listdir(folderName)
+#
+#         os.makedirs("DocumentLab5copy", exist_ok=True)
+#         filesZero = 0
+#
+#         for file in files:
+#             path = os.path.join(folderName, file)
+#
+#             if '0' in file:
+#                 filesZero += 1
+#                 with open(path, "r", encoding="utf-8") as f:
+#                     words = len(f.read().split())
+#                     print(f"Tyle słow {words}")
+#             if "EF.txt" in file:
+#                 shutil.copy(path, os.path.join("DocumentLab5copy", file))
+#                 print("Skopiowano")
+#
+#         print(f"Pliki z 0 w nazwwie: {filesZero}")
+#         return func(folderName, txt)
+#     return wrapper
+#
+# @decorator
 # def func(folderName, txt):
+#     """
+#     funkcja sprawdza czy w folderze znajdują sie pliki zawierające w nazwie txt, a nastepnie liczy ile w takich plikach jest słów dłuższych niż 3.
+#
+#     Args:
+#         folderName (str): nazwa folderu.
+#         txt (str): szukany tekst.
+#
+#     Returns:
+#
+#
+#     """
 #     files = os.listdir(folderName)
 #     for file in files:
 #         print(file)
