@@ -179,35 +179,35 @@ import string
 ## Wykonaj na Lab6:  Don't forget to handle exceptions (obsłudze wyjątków)
 ###############
 
-def fun(*args):
-    """
-    funkcja potęguje podane przez użytkownika liczby
-
-    Args:
-        *args: liczby do potegowania
-
-    Returns:
-        (str) : zwraca tekst zawierający spotęgowane liczby
-
-    """
-    if len(args) > 100:
-        return "Error"
-
-    results = []
-    namespace = {}
-
-    for index, value in enumerate(args, start=1):
-        try:
-            var = f"x{index}"
-            namespace[var] = float(value)
-            exec(f"result = {var} ** {var}", {}, namespace)
-            results.append(str(namespace['result']))
-        except ValueError:
-            return f"Error: {value}"
-
-    return ", ".join(results)
-
-print(fun(1,2,3,4,5))
+# def fun(*args):
+#     """
+#     funkcja potęguje podane przez użytkownika liczby
+#
+#     Args:
+#         *args: liczby do potegowania
+#
+#     Returns:
+#         (str) : zwraca tekst zawierający spotęgowane liczby
+#
+#     """
+#     if len(args) > 100:
+#         return "Error"
+#
+#     results = []
+#     namespace = {}
+#
+#     for index, value in enumerate(args, start=1):
+#         try:
+#             var = f"x{index}"
+#             namespace[var] = float(value)
+#             exec(f"result = {var} ** {var}", {}, namespace)
+#             results.append(str(namespace['result']))
+#         except ValueError:
+#             return f"Error: {value}"
+#
+#     return ", ".join(results)
+#
+# print(fun(1,2,3,4,5))
 
 
 ########################## Task 5 ########################
